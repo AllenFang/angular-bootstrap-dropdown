@@ -1,0 +1,29 @@
+{
+  "name": "angular-bootstrap-dropdown",
+  "version": "0.1.0",
+  "authors": [
+    "AllenFang <ayu780129@hotmail.com>"
+  ],
+  "description": "It's a angular directive for bootstrap dropdown",
+  "keywords": [
+    "angular",
+    "directive",
+    "bootstrap",
+    "dropdown", 
+    "select"
+  ],
+  "main":[
+    "dist/bsDropdown.min.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "example"
+  ],
+  "dependencies": {
+    "angular": "~1.3.14",
+    "bootstrap": "~3.3.2"
+  }
+}
