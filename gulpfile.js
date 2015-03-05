@@ -8,6 +8,10 @@ var rename = require('gulp-rename');
 var srcFile = 'src/bsDropdown.js';
 
 gulp.task('default', ['jshint', 'uglify']);
+gulp.task('dev', function(){
+	return gulp.watch([srcFile], ['default'])
+});
+
 
 gulp.task('jshint', function(){
 	return gulp.src(srcFile)
@@ -17,7 +21,9 @@ gulp.task('jshint', function(){
 
 gulp.task('uglify', function(){
 	return gulp.src(srcFile)
-		.pipe(uglify())
+		.pipe(uglify({
+			preserveComments: 'some'
+		}))
 		.pipe(rename({
 			suffix: '.min'
 		}))
