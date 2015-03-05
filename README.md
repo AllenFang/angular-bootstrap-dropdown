@@ -51,13 +51,15 @@ So here is your partial html code
 ```
 <div ng-controller="YearController">
 			<h4>You select {{selectYear}} ....</h4><br/>
-			<div bs-dropdown show-text="MyDropDown" items="years" 
+			<div bs-dropdown 
+			     bs-dropdown-display="MyDropDown" 
+				 bs-dropdown-items="years" 
 			     ng-model="selectYear" 
 			     ng-change="changeYear()"></div>
 </div>
 ```
 
-Use ```show-text``` attribute to display default text on dropdown if there is no any default value selected  
-Use ```items``` attribute to specify the dropdown options  
+Use ```bs-dropdown-display``` attribute to display default text on dropdown if there is no any default value selected  
+Use ```bs-dropdown-items``` attribute to specify the dropdown options  
 Use ```ng-model``` to set the default selected value   
 Use ```ng-change``` to listen up the change event on dropdown  
