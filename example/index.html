@@ -5,14 +5,17 @@
 		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="../bower_components/angular/angular.min.js"></script>
-		<script src="../src/bsDropdown.js"></script>
+		<script src="../dist/bsDropdown.min.js"></script>
 		<script src="js/app.js"></script>
 	</head>
 	<body>
 		<div ng-controller="YearController">
 			<h4>You select {{selectYear}} ....</h4><br/>
-			<div bs-dropdown show-text="MyDropDown" items="years" ng-model="selectYear" 
-			ng-change="changeYear()"></div>
+			<div bs-dropdown 
+			     bs-dropdown-display="MyDropDown" 
+				 bs-dropdown-items="years" 
+				 ng-model="selectYear" 
+				 ng-change="changeYear()"></div>
         </div>
         <br/>
         <br/>
@@ -20,9 +23,9 @@
         <h2>Tutorial</h2>
         <pre style="background-color: #BBBBBB; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; color: black; font-family: Monaco, Menlo, Consolas, 'Courier New', monospace; font-size: 13px; line-height: 1.42857; margin-bottom: 10px; padding: 9.5px; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><span class="nv" style="box-sizing: border-box; color: black;">
 
-        1. Use show-text attribute in bs-dropdown to specify the default text on dropdown
+        1. Use bs-dropdown-display attribute in bs-dropdown to specify the default text on dropdown
 
-        2. Use items(required) attribute in bs-dropdown to specify the options you want to display in dropdown
+        2. Use bs-dropdown-items(required) attribute in bs-dropdown to specify the options you want to display in dropdown
 
         3. Use ng-model(required) attribute in bs-dropdown to specify the current selected option in dropndown.<br/> 
            If no data you want to select on doopwodn default, you can give null value.<br/> 
