@@ -14,4 +14,16 @@ angular.module("demoApp", ['ng.bs.dropdown'])
 		$scope.changeYear = function(){
 			console.log("YearController say... " + $scope.selectYear);
 		}
+	})
+	.controller("DividerController", function($scope){
+		$scope.actions = [
+			"Action",
+			"Another action",
+			"Something else here",
+			"separated link1",
+			"Action anain",
+			"Nothing else",
+			"separated link2"
+		];
+		$scope.selectAction = null;
 	});

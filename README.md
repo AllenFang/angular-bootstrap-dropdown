@@ -3,8 +3,11 @@ It's a angular directive for bootstrap dropdown
 
 angular-bootstrap-dropdown dependencies on AngularJS 1.2.x and Bootstrap 3  
 
-Current version is 0.1, there will be more improvement on angular-bootstrap-dropdown.  
-You can see the example on example folder.  
+### Versions
+0.1.0 support basic function in bsDropdown, include use ng-model to set default value, and ng-change to listen change   
+
+0.1.1(latest) add bootstrap divider in bsDropdown 
+ 
 
 ### Development
 ```bash
@@ -63,3 +66,4 @@ Use ```bs-dropdown-display``` attribute to display default text on dropdown if t
 Use ```bs-dropdown-items``` attribute to specify the dropdown options  
 Use ```ng-model``` to set the default selected value   
 Use ```ng-change``` to listen up the change event on dropdown  
+Use ```bs-dropdown-divider``` to specify the divider, for example bs-dropdown-divider="{{[2,5]}}".

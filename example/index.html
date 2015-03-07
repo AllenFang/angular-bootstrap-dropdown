@@ -9,17 +9,31 @@
 		<script src="js/app.js"></script>
 	</head>
 	<body>
-		<div ng-controller="YearController">
-			<h4>You select {{selectYear}} ....</h4><br/>
-			<div bs-dropdown 
-			     bs-dropdown-display="MyDropDown" 
-				 bs-dropdown-items="years" 
-				 ng-model="selectYear" 
-				 ng-change="changeYear()"></div>
-        </div>
-        <br/>
-        <br/>
-        <br/>
+		<div class="col-md-offset-0 col-md-3">
+	        <div class="panel panel-default">
+				<div class="panel-heading">A basic function demo for bsDropdown.</div>
+				<div class="panel-body" ng-controller="YearController">
+			    	<h4>You select {{selectYear}} ....</h4><br/>
+					<div bs-dropdown 
+					     bs-dropdown-display="MyDropDown" 
+						 bs-dropdown-items="years" 
+						 ng-model="selectYear" 
+						 ng-change="changeYear()"></div>
+				</div>
+			</div>
+	        <br/>
+	        <br/>
+	        <div class="panel panel-default">
+				<div class="panel-heading">A divider demo for bsDropdown.</div>
+		        <div class="panel-body" ng-controller="DividerController">
+					<div bs-dropdown 
+					     bs-dropdown-display="MyDropDown" 
+						 bs-dropdown-items="actions" 
+						 bs-dropdown-divider="{{[2,5]}}" 
+						 ng-model="selectAction"></div>
+		        </div>
+		    </div>
+	    </div>
         <h2>Tutorial</h2>
         <pre style="background-color: #BBBBBB; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; color: black; font-family: Monaco, Menlo, Consolas, 'Courier New', monospace; font-size: 13px; line-height: 1.42857; margin-bottom: 10px; padding: 9.5px; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><span class="nv" style="box-sizing: border-box; color: black;">
 
@@ -31,7 +45,9 @@
            If no data you want to select on doopwodn default, you can give null value.<br/> 
            For example, you can modify $scope.selectYear = null; in YearController in this example.
 
-        4. Use ng-change to listen a change event on dropdown
+        4. Use ng-change to listen a change event on dropdown.<br/> 
+
+        5. Use bs-dropdown-divider to specify the divider, for example bs-dropdown-divider="{{[2,5]}}".<br/>  
         </pre>
 	</body>
 </html>
