@@ -4,7 +4,9 @@
 var bd = angular.module("ng.bs.dropdown", []);
 bd.constant('bsDropdownCfg', {
 	display: 'DropDown',
-	divider:[]
+	disabled: false,
+	divider:[],
+	disabledItems: []
 });
 bd.run(['$templateCache', function($templateCache){
 	$templateCache.put('bsDropdown/templates/defaultTemplate.html',[
@@ -14,7 +16,7 @@ bd.run(['$templateCache', function($templateCache){
 		    '<span class="caret"></span>',
 		  '</button>',
 		  '<ul class="dropdown-menu" role="menu" aria-labelledby="bsDropDown">',
-		    "<li role='presentation' ng-repeat='item in _bsDropdownItems' ng-class='{divider:item.isDivider}'>",
+		    "<li role='presentation' ng-repeat='item in _bsDropdownItems' ng-class='{divider:item.isDivider, disabled: item.isDisabled}'>",
 		      '<a ng-if="!item.isDivider" role="menuitem" tabindex="-1" href="#" ng-click="selectItem(item.text)">{{item.text}}</a>',
 		    '</li>',
 		  '</ul>',
@@ -34,8 +36,12 @@ bd.directive("bsDropdown", ['bsDropdownCfg', function(bsDropdownCfg){
 				var defaultDisplay = angular.isDefined(attr.bsDropdownDisplay)?
 										attr.bsDropdownDisplay:bsDropdownCfg.display;
 				scope.divider = angular.isDefined(attr.bsDropdownDivider)?
-									scope.$eval(attr.bsDropdownDivider):bsDropdownCfg.divider;								
-				
+									scope.$eval(attr.bsDropdownDivider):bsDropdownCfg.divider;
+				scope.disabledItems = angular.isDefined(attr.bsDropdownItemDisabled)?
+										scope.$eval(attr.bsDropdownItemDisabled):bsDropdownCfg.disabledItems;
+				scope.disabled = angular.isDefined(attr.bsDropdownDisabled)?
+									scope.$eval(attr.bsDropdownDisabled):bsDropdownCfg.disabled;
+
 				ngModelCtrl.$render = function(){
 					if(angular.isDefined(scope.selected))
 						ngModelCtrl.$setViewValue(scope.selected);
@@ -55,6 +61,9 @@ bd.directive("bsDropdown", ['bsDropdownCfg', function(bsDropdownCfg){
 					el.find("#bsDropDown").attr("id", id);
 					el.find(".dropdown-menu").attr("aria-labelledby", id);
 					_changeShowText(defaultDisplay);
+					if(scope.disabled){
+						el.find("button").addClass("disabled");
+					}
 				}
 
 				function _changeShowText(text){
@@ -66,25 +75,27 @@ bd.directive("bsDropdown", ['bsDropdownCfg', function(bsDropdownCfg){
 					var _k = 0;
 					for(var i=0;i<scope.bsDropdownItems.length;i++){
 						var isDivider = scope.divider.indexOf(i)!=-1;
+						var isDisabled = scope.disabledItems.indexOf(i)!=-1;
 						var text = scope.bsDropdownItems[i];
 						if(isDivider){
-							var option  = _createDropdownOption(_k++, text, !isDivider);
-							var divider = _createDropdownOption(_k++, null, isDivider);
+							var option  = _createDropdownOption(_k++, text, !isDivider, isDisabled);
+							var divider = _createDropdownOption(_k++, null, isDivider, false);
 							dropdownItem.push(option);
 							dropdownItem.push(divider);
 						}else{
-							var option = _createDropdownOption(_k++, text, isDivider);
+							var option = _createDropdownOption(_k++, text, isDivider, isDisabled);
 							dropdownItem.push(option);
 						}
 					}
 					scope._bsDropdownItems = dropdownItem;
 				}
 
-				function _createDropdownOption(k, text_, isDivider_){
+				function _createDropdownOption(k, text_, isDivider_, isDisabled_){
 					return {
 						_k: k,
 						text: text_,
-						isDivider: isDivider_
+						isDivider: isDivider_,
+						isDisabled: isDisabled_
 					};
 				}
 			},

@@ -6,7 +6,9 @@ angular-bootstrap-dropdown dependencies on AngularJS 1.2.x and Bootstrap 3
 ### Versions
 0.1.0 support basic function in bsDropdown, include use ng-model to set default value, and ng-change to listen change   
 
-0.1.1(latest) add bootstrap divider in bsDropdown 
+0.1.1 add bootstrap divider in bsDropdown 
+
+0.2.0(latest) add bootstrap dropdown disabled and item disabled in bsDropdown 
  
 
 ### Development
@@ -66,4 +68,6 @@ Use ```bs-dropdown-display``` attribute to display default text on dropdown if t
 Use ```bs-dropdown-items``` attribute to specify the dropdown options  
 Use ```ng-model``` to set the default selected value   
 Use ```ng-change``` to listen up the change event on dropdown  
-Use ```bs-dropdown-divider``` to specify the divider, for example bs-dropdown-divider="{{[2,5]}}".
+Use ```bs-dropdown-divider``` to specify the divider, for example bs-dropdown-divider="{{[2,5]}}".   
+Use ```bs-dropdown-item-disabled``` to specify which option should be disabled,for example bs-dropdown-item-disabled="{{[2,5]}}".   
+Use ```bs-dropdown-disabled``` to set dropdown disabled, for example bs-dropdown-disabled="true".
