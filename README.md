@@ -12,12 +12,19 @@ angular-bootstrap-dropdown dependencies on AngularJS 1.2.x and Bootstrap 3
  
 
 ### Development
-```bash
+```
 $ git clone https://github.com/AllenFang/angular-bootstrap-dropdown.git
 $ cd angular-practice-example
 $ npm install
 $ bower install
 ```
+Use gulp to test the bsDropdown
+```
+$ npm test
+or
+$ node_modules/gulp/bin/gulp.js test
+```
+
 
 ### Usage
 Include the angular-bootstrap-dropdown library to your html page
