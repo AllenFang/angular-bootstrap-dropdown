@@ -132,4 +132,51 @@ describe("bsDropdown Tests", function(){
 			}
 		});
 	});
+
+	describe("A dropdown with disabled items test", function(){
+		beforeEach(inject(function($rootScope, $compile){
+			mockScope = $rootScope.$new();
+			compile = $compile;
+			mockScope.data = dropdownItem;
+			//default select value
+			mockScope.selectData = null;
+
+			el = "<div bs-dropdown bs-dropdown-items='data' bs-dropdown-item-disabled='{{[1,3]}}' ng-model='selectData'></div>";
+			el = $compile(el)(mockScope);
+			mockScope.$digest();
+		}));
+
+		it("the isolateScope in bsDropdown directive should be correct", function(){
+			var isolated = el.isolateScope();
+			expect(isolated.disabledItems).toBeDefined();
+			expect(isolated.disabledItems.length).toBe(2);
+
+			var _bsDropdownItems = isolated._bsDropdownItems;
+			expect(_bsDropdownItems).not.toBeNull();
+			expect(_bsDropdownItems).toBeDefined();
+			expect(mockScope.data.length).toBe(_bsDropdownItems.length);		
+			
+			for(var i=0;i<_bsDropdownItems.length;i++){
+				var item = _bsDropdownItems[i];
+				expect(item).toBeDefined();
+				expect(item._k).toBe(i);
+				expect(item.isDivider).toBe(false);
+				expect(item.text).toBe(mockScope.data[i]);
+				if(isolated.disabledItems.indexOf(i) != -1)
+					expect(item.isDisabled).toBe(true);
+				else
+					expect(item.isDisabled).toBe(false);
+			}
+		});
+
+		it("the item on dropdown should be correct", function(){
+			var isolated = el.isolateScope();
+			var itemElms = el.find("li");
+			for(var i=0;i<itemElms.length;i++){
+				if(isolated.disabledItems.indexOf(i) != -1)
+					expect(itemElms.eq(i).attr("class").indexOf('disabled')).not.toBe(-1);
+				expect(itemElms.eq(i).find("a").text()).toBe(mockScope.data[i]);
+			}
+		});
+	});
 });
