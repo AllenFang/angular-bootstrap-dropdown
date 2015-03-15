@@ -51,6 +51,17 @@
 						 ng-model="selectAction"></div>
 		        </div>
 		    </div>
+		    <div class="panel panel-default">
+				<div class="panel-heading">A multiselect dropdown demo for bsDropdown.</div>
+		        <div class="panel-body" ng-controller="MultiSelectController">
+					<div bs-dropdown 
+						 bs-dropdown-multi 
+					     bs-dropdown-display="Multiselect" 
+						 bs-dropdown-items="actions" 
+						 ng-model="selectAction" 
+						 ng-change="change()"></div>
+		        </div>
+		    </div>
 	    </div>
         <h2>Tutorial</h2>
         <pre style="background-color: #BBBBBB; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; color: black; font-family: Monaco, Menlo, Consolas, 'Courier New', monospace; font-size: 13px; line-height: 1.42857; margin-bottom: 10px; padding: 9.5px; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><span class="nv" style="box-sizing: border-box; color: black;">
@@ -71,6 +82,8 @@
            for example bs-dropdown-item-disabled="{{[2,5]}}".<br/>  
 
         7. Use bs-dropdown-disabled to set bsDropdown disabled, for example bs-dropdown-disabled="true".<br/>  
+
+        8. Use bs-dropdown-multi to specify bsDropdown to be a multi-select dropdown.<br/>  
         </pre>
 	</body>
 </html>

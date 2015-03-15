@@ -1,7 +1,7 @@
 {
   "name": "angular-bootstrap-dropdown",
-  "version": "0.2.0",
-  "description": "It's a angular directive for bootstrap dropdown.",
+  "version": "0.9.0",
+  "description": "It's a angular directive for bootstrap dropdown and multi-select.",
   "scripts": {
     "test": "node_modules/karma/bin/karma start test/karma.conf.js"
   },
@@ -10,7 +10,8 @@
     "directive",
     "bootstrap",
     "dropdown",
-    "select"
+    "select",
+    "multiSelect"
   ],
   "author": "AllenFang",
   "license": "MIT",
