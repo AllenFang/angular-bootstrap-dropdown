@@ -17,7 +17,7 @@ bd.run(['$templateCache', function($templateCache){
 		  '</button>',
 		  '<ul class="dropdown-menu" role="menu" aria-labelledby="bsDropDown">',
 		    "<li role='presentation' ng-repeat='item in _bsDropdownItems' ng-class='{divider:item.isDivider, disabled: item.isDisabled}'>",
-		      '<a ng-if="!item.isDivider" role="menuitem" tabindex="-1" href="#" ng-click="selectItem(item.text)">{{item.text}}</a>',
+		      '<a ng-if="!item.isDivider" role="menuitem" tabindex="-1" href="" ng-click="selectItem(item)">{{item.text}}</a>',
 		    '</li>',
 		  '</ul>',
 		'</div>'
@@ -31,7 +31,7 @@ bd.run(['$templateCache', function($templateCache){
 		  '</button>',
 		  '<ul class="dropdown-menu" role="menu" aria-labelledby="bsDropDown">',
 		    "<li role='presentation' ng-repeat='item in _bsDropdownItems' ng-class='{divider:item.isDivider, disabled: item.isDisabled}'>",
-		      '<a ng-if="!item.isDivider" role="menuitem" tabindex="-1" href="#" ng-click="selectItem(item.text)">',
+		      '<a ng-if="!item.isDivider" role="menuitem" tabindex="-1" href="" ng-click="selectItem(item)">',
 		      	  '<input type="checkbox" ng-checked="item.checked"/> {{item.text}}',
 		      '</a>',
 		    '</li>',
@@ -70,27 +70,30 @@ bd.controller("bsDropdownController",
 		};
 
 		$scope.selectItem = function(item){
-			if($scope.multiSelect)	{
-				var index = -1;
-				if((index=$scope.selected.indexOf(item)) == -1){
-					var newSelected = [];
-					for(var i=0;i<$scope.selected.length;i++){
-						newSelected.push($scope.selected[i]);
+			var text = item.text;
+			if(!item.isDisabled){
+				if($scope.multiSelect)	{
+					var index = -1;
+					if((index=$scope.selected.indexOf(text)) == -1){
+						var newSelected = [];
+						for(var i=0;i<$scope.selected.length;i++){
+							newSelected.push($scope.selected[i]);
+						}
+						newSelected.push(text);
+						$scope.selected = newSelected;
 					}
-					newSelected.push(item);
-					$scope.selected = newSelected;
-				}
-				else{
-					var newSelected = [];
-					for(var i=0;i<$scope.selected.length;i++){
-						if(i != index) newSelected.push($scope.selected[i]);
+					else{
+						var newSelected = [];
+						for(var i=0;i<$scope.selected.length;i++){
+							if(i != index) newSelected.push($scope.selected[i]);
+						}
+						$scope.selected = newSelected;
 					}
-					$scope.selected = newSelected;
+				} else{
+					$scope.selected = text;
 				}
-			} else{
-				$scope.selected = item;
+				ngModelCtrl.$render();
 			}
-			ngModelCtrl.$render();
 		};
 }]);
 bd.directive("bsDropdown", ['bsDropdownCfg', function(bsDropdownCfg){
@@ -138,7 +141,14 @@ bd.directive("bsDropdown", ['bsDropdownCfg', function(bsDropdownCfg){
 				}
 
 				function changeShowText(text){
-					scope.showText = text !== null?text:defaultDisplay;
+					var _text = text;
+					if(angular.isArray(_text)) {
+						if(_text.length == 0)
+							_text = null;
+						else
+							_text = _text.join();
+					}
+					scope.showText = _text !== null?_text:defaultDisplay;
 				}
 
 				function createDropdownItems(){
