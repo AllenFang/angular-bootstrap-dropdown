@@ -6,7 +6,8 @@ module.exports = function(config) {
         '../bower_components/angular/angular.min.js',
         '../bower_components/angular-mocks/angular-mocks.js',
         '../src/bsDropdown.js',
-        './bsDropdown-test.js'
+        './bsDropdown-test.js',
+        'bsDropdown-multiselect-test.js'
       ],
       exclude: [
       ],

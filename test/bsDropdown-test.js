@@ -179,4 +179,21 @@ describe("bsDropdown Tests", function(){
 			}
 		});
 	});
+
+	describe("A disabled dropdown test", function(){
+		beforeEach(inject(function($rootScope, $compile){
+			mockScope = $rootScope.$new();
+			compile = $compile;
+			mockScope.data = dropdownItem;
+			mockScope.selectData = null;
+
+			el = "<div bs-dropdown bs-dropdown-items='data' bs-dropdown-disabled='true' ng-model='selectData'></div>";
+			el = $compile(el)(mockScope);
+			mockScope.$digest();
+		}));
+
+		it("the dropdown should be desabled", function(){
+			expect(el.find("button").attr("class").indexOf('disabled')).not.toBe(-1);
+		});
+	});
 });
