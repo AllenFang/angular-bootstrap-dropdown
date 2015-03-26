@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Angular-bootstrap-dropdown by AllenFang</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Angular-bootstrap-dropdown</h1>
+        <p>It&#39;s a angular directive for bootstrap dropdown and multi-select</p>
+
+        <p class="view"><a href="https://github.com/AllenFang/angular-bootstrap-dropdown">View the Project on GitHub <small>AllenFang/angular-bootstrap-dropdown</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/AllenFang/angular-bootstrap-dropdown/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/AllenFang/angular-bootstrap-dropdown/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/AllenFang/angular-bootstrap-dropdown">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="angular-bootstrap-dropdown" class="anchor" href="#angular-bootstrap-dropdown" aria-hidden="true"><span class="octicon octicon-link"></span></a>angular-bootstrap-dropdown</h1>
+
+<p>It's a angular directive for bootstrap dropdown, named 'bsDropdown'   </p>
+
+<p>The bsDropdown include all basic function in dropdown, include set default value, and listen change etc.   </p>
+
+<p>Also support multi-select on newest version.   </p>
+
+<p>angular-bootstrap-dropdown dependencies on AngularJS 1.2.x and Bootstrap 3   </p>
+
+<p>You can see an online demo on <a href="http://frozen-tundra-7264.herokuapp.com/examples/L8/#">here</a>.   </p>
+
+<h3>
+<a id="versions" class="anchor" href="#versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Versions</h3>
+
+<p>0.1.0 support basic function in bsDropdown, include use ng-model to set default value, and ng-change to listen change   </p>
+
+<p>0.1.1 add bootstrap divider in bsDropdown </p>
+
+<p>0.2.0 add bootstrap dropdown disabled and item disabled in bsDropdown   </p>
+
+<p>0.9.0(latest) add multi-select to bsDropdown!!   </p>
+
+<h3>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h3>
+
+<pre><code>$ git clone https://github.com/AllenFang/angular-bootstrap-dropdown.git
+$ cd angular-practice-example
+$ npm install
+$ bower install
+</code></pre>
+
+<p>Use gulp to test the bsDropdown</p>
+
+<pre><code>$ npm test
+or
+$ node_modules/gulp/bin/gulp.js test
+</code></pre>
+
+<h3>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<p>Include the angular-bootstrap-dropdown library to your html page</p>
+
+<pre><code>&lt;script src="bsDropdown.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>The <code>bsDropdown.min.js</code> is in the dist folder.
+In the next, include the <code>ng.bs.dropdown</code> to your angular module dependencies  </p>
+
+<pre><code>angular.module("demoApp", ['ng.bs.dropdown'])
+</code></pre>
+
+<p>Then, you can go to use the angular-bootstrap-dropdown, below is a simple example  </p>
+
+<p>First of all, give an angular controller</p>
+
+<pre><code>angular.module("demoApp", ['ng.bs.dropdown'])
+    .controller("YearController", function($scope){
+        $scope.years = [
+            "2015",
+            "2014",
+            "2013",
+            "2012",
+            "2011",
+            "2010"
+        ];
+        $scope.selectYear = $scope.years[2];  //current select item
+
+        /*changeYear function will be called if dropdown change*/
+        $scope.changeYear = function(){
+            console.log("YearController say... " + $scope.selectYear);
+        }
+    });
+</code></pre>
+
+<p>So here is your partial html code</p>
+
+<pre><code>&lt;div ng-controller="YearController"&gt;
+            &lt;h4&gt;You select {{selectYear}} ....&lt;/h4&gt;&lt;br/&gt;
+            &lt;div bs-dropdown 
+                 bs-dropdown-display="MyDropDown" 
+                 bs-dropdown-items="years" 
+                 ng-model="selectYear" 
+                 ng-change="changeYear()"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h3>
+<a id="setting" class="anchor" href="#setting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting</h3>
+
+<p>Use <code>bs-dropdown-display</code> attribute to display default text on dropdown if there is no any default value selected<br>
+Use <code>bs-dropdown-items</code> attribute to specify the dropdown options<br>
+Use <code>ng-model</code> to set the default selected value<br>
+Use <code>ng-change</code> to listen up the change event on dropdown<br>
+Use <code>bs-dropdown-divider</code> to specify the divider, for example bs-dropdown-divider="{{[2,5]}}".<br>
+Use <code>bs-dropdown-item-disabled</code> to specify which option should be disabled,for example bs-dropdown-item-disabled="{{[2,5]}}".<br>
+Use <code>bs-dropdown-disabled</code> to set dropdown disabled, for example bs-dropdown-disabled="true".<br>
+Use <code>bs-dropdown-multi</code> to specify bsDropdown to be a multi-select dropdown.   </p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/AllenFang">AllenFang</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
