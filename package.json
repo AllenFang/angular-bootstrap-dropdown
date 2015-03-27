@@ -5,6 +5,10 @@
   "scripts": {
     "test": "node_modules/karma/bin/karma start test/karma.conf.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AllenFang/angular-bootstrap-dropdown.git"
+  }
   "keywords": [
     "angular",
     "directive",
