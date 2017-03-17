@@ -70,7 +70,7 @@ bd.controller("bsDropdownController",
 		};
 
 		$scope.selectItem = function(item){
-			var text = item.text;
+			var text = item.value;
 			if(!item.isDisabled){
 				if($scope.multiSelect)	{
 					var index = -1;
@@ -79,7 +79,7 @@ bd.controller("bsDropdownController",
 						for(var i=0;i<$scope.selected.length;i++){
 							newSelected.push($scope.selected[i]);
 						}
-						newSelected.push(text);
+						newSelected.push(item);
 						$scope.selected = newSelected;
 					}
 					else{
@@ -90,7 +90,7 @@ bd.controller("bsDropdownController",
 						$scope.selected = newSelected;
 					}
 				} else{
-					$scope.selected = text;
+					$scope.selected = item;
 				}
 				ngModelCtrl.$render();
 			}
@@ -112,7 +112,13 @@ bd.directive("bsDropdown", ['bsDropdownCfg', function(bsDropdownCfg){
 				var bsDropdownCtrl = ctrls[0], ngModelCtrl = ctrls[1];
 				var defaultDisplay = angular.isDefined(attr.bsDropdownDisplay)?
 										attr.bsDropdownDisplay:bsDropdownCfg.display;
-
+				scope.$watch("bsDropdownItems",function(newValue,oldValue) {
+						if(newValue != oldValue){
+							scope.bsDropdownItems = newValue;
+							scope._bsDropdownItems = createDropdownItems();
+							bsDropdownRender();
+						}
+					});
 				scope._bsDropdownItems = scope.bsDropdownItems;
 				scope.divider = angular.isDefined(attr.bsDropdownDivider)?
 									scope.$eval(attr.bsDropdownDivider):bsDropdownCfg.divider;
@@ -121,9 +127,17 @@ bd.directive("bsDropdown", ['bsDropdownCfg', function(bsDropdownCfg){
 				scope.disabled = angular.isDefined(attr.bsDropdownDisabled)?
 									scope.$eval(attr.bsDropdownDisabled):bsDropdownCfg.disabled;
 				scope.multiSelect = angular.isDefined(attr.bsDropdownMulti);
+				scope.displayProperty = angular.isDefined(attr.bsDropdownDisplayProperty)?
+										attr.bsDropdownDisplayProperty:bsDropdownCfg.displayProperty;
+				scope.valueProperty = angular.isDefined(attr.bsDropdownValueProperty)?
+										attr.bsDropdownValueProperty:bsDropdownCfg.valueProperty;
 
 				bsDropdownCtrl.init(ngModelCtrl);
 				bsDropdownCtrl.$render = function(displayText){
+					if(displayText !== null && typeof displayText === 'object'){
+						changeShowText(displayText.text);
+						return;
+					};
 					changeShowText(displayText);
 				};
 				
@@ -154,27 +168,37 @@ bd.directive("bsDropdown", ['bsDropdownCfg', function(bsDropdownCfg){
 				function createDropdownItems(){
 					var dropdownItem = [];
 					var _k = 0;
-					for(var i=0;i<scope.bsDropdownItems.length;i++){
-						var isDivider = scope.divider.indexOf(i)!=-1;
-						var isDisabled = scope.disabledItems.indexOf(i)!=-1;
-						var text = scope.bsDropdownItems[i];
-						if(isDivider){
-							var option  = _createDropdownItemObj(_k++, text, !isDivider, isDisabled);
-							var divider = _createDropdownItemObj(_k++, null, isDivider, false);
-							dropdownItem.push(option);
-							dropdownItem.push(divider);
-						}else{
-							var option = _createDropdownItemObj(_k++, text, isDivider, isDisabled);
-							dropdownItem.push(option);
+					if(scope.bsDropdownItems){
+						for(var i=0;i<scope.bsDropdownItems.length;i++){
+							var isDivider = scope.divider.indexOf(i)!=-1;
+							var isDisabled = scope.disabledItems.indexOf(i)!=-1;
+							var text = scope.bsDropdownItems[i];
+							if(scope.displayProperty){
+								text = scope.bsDropdownItems[i][scope.displayProperty];
+							}
+							var value = text;
+							if(scope.valueProperty){
+								value = scope.bsDropdownItems[i][scope.valueProperty];
+							}
+							if(isDivider){
+								var option  = _createDropdownItemObj(_k++, text, value, !isDivider, isDisabled);
+								var divider = _createDropdownItemObj(_k++, null, null, isDivider, false);
+								dropdownItem.push(option);
+								dropdownItem.push(divider);
+							}else{
+								var option = _createDropdownItemObj(_k++, text, value, isDivider, isDisabled);
+								dropdownItem.push(option);
+							}
 						}
 					}
 					return dropdownItem;
 				}
 
-				function _createDropdownItemObj(k, text_, isDivider_, isDisabled_){
+				function _createDropdownItemObj(k, text_, value_, isDivider_, isDisabled_){
 					return {
 						_k: k,
 						text: text_,
+						value: value_,
 						isDivider: isDivider_,
 						isDisabled: isDisabled_
 					};

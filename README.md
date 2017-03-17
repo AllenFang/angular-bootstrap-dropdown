@@ -78,6 +78,41 @@ So here is your partial html code
 </div>
 ```
 
+Or, passing an array of objects
+```
+angular.module("demoApp", ['ng.bs.dropdown'])
+	.controller("YearController", function($scope){
+		$scope.years = [
+			{ year: "2015", id="123" },
+			{ year: "2014", id="124" },
+			{ year: "2013", id="125" },
+			{ year: "2012", id="126" },
+			{ year: "2011", id="127" },
+			{ year: "2010", id="128" }
+		];
+		$scope.selectYear = $scope.years[2];  //current select item
+		
+		/*changeYear function will be called if dropdown change*/
+		$scope.changeYear = function(){
+			console.log("YearController say... " + $scope.selectYear.id);
+		}
+	});
+```
+
+So here is your partial html code
+```
+<div ng-controller="YearController">
+			<h4>You select {{selectYear}} ....</h4><br/>
+			<div bs-dropdown 
+			     bs-dropdown-display="MyDropDown" 
+				 bs-dropdown-items="years" 
+			     ng-model="selectYear" 
+			     ng-change="changeYear()"
+				 bs-dropdown-display-property="year"
+				 bs-dropdown-value-property="id"></div>
+</div>
+```
+
 ### Setting
 Use ```bs-dropdown-display``` attribute to display default text on dropdown if there is no any default value selected  
 Use ```bs-dropdown-items``` attribute to specify the dropdown options  
@@ -87,3 +122,5 @@ Use ```bs-dropdown-divider``` to specify the divider, for example bs-dropdown-di
 Use ```bs-dropdown-item-disabled``` to specify which option should be disabled,for example bs-dropdown-item-disabled="{{[2,5]}}".   
 Use ```bs-dropdown-disabled``` to set dropdown disabled, for example bs-dropdown-disabled="true".   
 Use ```bs-dropdown-multi``` to specify bsDropdown to be a multi-select dropdown.   
+Use ```bs-dropdown-display-property``` if passing an array of objects in bs-dropdown-items this attribute sets the property to display   
+Use ```bs-dropdown-value-property``` if passing an array of objects in bs-dropdown-items this attribute sets the value to use
